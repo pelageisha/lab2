@@ -3,18 +3,20 @@ package main
 import (
 	"testing"
 
+	"lab2/models"
+
 	"github.com/stretchr/testify/require"
 )
 
 func TestCalculateTotal(t *testing.T) {
 	tests := []struct {
 		name        string
-		input       []Transaction
+		input       []models.Transaction
 		expectedSum float64
 	}{
 		{
 			name: "Only income",
-			input: []Transaction{
+			input: []models.Transaction{
 				{Amount: 1000},
 				{Amount: 2000},
 			},
@@ -22,7 +24,7 @@ func TestCalculateTotal(t *testing.T) {
 		},
 		{
 			name: "Income and expense",
-			input: []Transaction{
+			input: []models.Transaction{
 				{Amount: 5000},
 				{Amount: -2000},
 				{Amount: -1000},
@@ -31,7 +33,7 @@ func TestCalculateTotal(t *testing.T) {
 		},
 		{
 			name:        "Empty list",
-			input:       []Transaction{},
+			input:       []models.Transaction{},
 			expectedSum: 0,
 		},
 	}
@@ -45,18 +47,18 @@ func TestCalculateTotal(t *testing.T) {
 }
 
 func TestMaxExpenseType(t *testing.T) {
-	office := TransactionType{ID: 1, Name: "Оренда"}
-	salary := TransactionType{ID: 2, Name: "Зарплата"}
-	supplies := TransactionType{ID: 3, Name: "Канцелярія"}
+	office := models.TransactionType{ID: 1, Name: "Оренда"}
+	salary := models.TransactionType{ID: 2, Name: "Зарплата"}
+	supplies := models.TransactionType{ID: 3, Name: "Канцелярія"}
 
 	tests := []struct {
 		name        string
-		input       []Transaction
-		expectedMax TransactionType
+		input       []models.Transaction
+		expectedMax models.TransactionType
 	}{
 		{
 			name: "Оренда найбільша",
-			input: []Transaction{
+			input: []models.Transaction{
 				{Amount: -1000, Type: supplies},
 				{Amount: -3000, Type: office},
 				{Amount: -1500, Type: salary},
@@ -65,7 +67,7 @@ func TestMaxExpenseType(t *testing.T) {
 		},
 		{
 			name: "Канцелярія найбільша",
-			input: []Transaction{
+			input: []models.Transaction{
 				{Amount: -500, Type: office},
 				{Amount: -5000, Type: supplies},
 			},
@@ -73,8 +75,8 @@ func TestMaxExpenseType(t *testing.T) {
 		},
 		{
 			name:        "Немає витрат",
-			input:       []Transaction{{Amount: 1000}, {Amount: 2000}},
-			expectedMax: TransactionType{},
+			input:       []models.Transaction{{Amount: 1000}, {Amount: 2000}},
+			expectedMax: models.TransactionType{},
 		},
 	}
 
