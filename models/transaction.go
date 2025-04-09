@@ -1,14 +1,13 @@
 package models
 
-type TransactionType struct {
-	ID       int    `json:"id" db:"id"`
-	Name     string `json:"name" db:"name"`
-	Category string `json:"category" db:"category"`
+type Transaction struct {
+	ID     int    `db:"id"`
+	Amount int    `db:"amount"`
+	Note   string `db:"note"`
+	Type   Type   `db:"type"`
 }
 
-type Transaction struct {
-	ID     int             `json:"id" db:"id"`
-	Amount float64         `json:"amount" db:"amount"`
-	Type   TransactionType `json:"type"`
-	Note   string          `json:"note"`
+type Type struct {
+	Name     string `json:"name"`
+	Category string `json:"category"`
 }
